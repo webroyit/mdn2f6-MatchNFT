@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       account: '0x0',
       token: null,
-      totalSupply: 0
+      totalSupply: 0,
+      tokenURIs: []
     }
   }
   async componentWillMount() {
@@ -52,6 +53,16 @@ class App extends Component {
       // `call()` for reading data from blockchain
       const totalSupply = await token.methods.totalSupply().call();
       this.setState({ totalSupply });
+
+      // Load Tokens
+      let balanceOf = await token.methods.balanceOf(accounts[0]).call();
+      for (let i = 0; i < balanceOf; i++) {
+        let id = await token.methods.tokenOfOwnerByIndex(accounts[0], i).call();
+        let tokenURI = await token.methods.tokenURI(id).call();
+        this.setState({
+          tokenURIs: [...this.state.tokenURIs, tokenURI]
+        })
+      }
       
     } else {
       alert('Smart contract not deployed to detected network.');
