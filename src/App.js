@@ -64,7 +64,10 @@ class App extends Component {
       token: null,
       totalSupply: 0,
       tokenURIs: [],
-      cardArray: []
+      cardArray: [],
+      cardsChosen: [],
+      cardsChosenId: [],
+      cardsWon: []
     }
   }
   async componentWillMount() {
@@ -126,7 +129,22 @@ class App extends Component {
 
   chooseImage = (cardId) => {
     cardId = cardId.toString();
-    return window.location.origin + '/images/blank.png';
+
+    if(this.state.cardsChosenId.includes(cardId)) {
+      // Show the front of the card with the icon
+      return CARD_ARRAY[cardId].img;
+    } else {
+      // Show the back of the card
+      return window.location.origin + '/images/blank.png';
+    }
+  }
+
+  flipCard = async (cardId) => {
+    // Keep track of the chosen cards
+    this.setState({
+      cardsChosen: [...this.state.cardsChosen, this.state.cardArray[cardId].name],
+      cardsChosenId: [...this.state.cardsChosenId, cardId]
+    })
   }
 
   render() {
@@ -147,6 +165,13 @@ class App extends Component {
                           key={key}
                           src={this.chooseImage(key)}
                           data-id={key}
+                          alt="Icon"
+                          onClick={(event) => {
+                            let cardId = event.target.getAttribute('data-id');
+                            if(!this.state.cardsWon.includes(cardId.toString())){
+                              this.flipCard(cardId);
+                            }
+                          }}
                         />
                       )
                     })}
