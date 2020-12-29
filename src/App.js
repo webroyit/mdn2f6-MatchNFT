@@ -63,12 +63,16 @@ class App extends Component {
       account: '0x0',
       token: null,
       totalSupply: 0,
-      tokenURIs: []
+      tokenURIs: [],
+      cardArray: []
     }
   }
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
+
+    // Put the order of the cards random
+    this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random()) });
   }
 
   async loadWeb3() {
@@ -120,11 +124,38 @@ class App extends Component {
     }
   }
 
+  chooseImage = (cardId) => {
+    cardId = cardId.toString();
+    return window.location.origin + '/images/blank.png';
+  }
+
   render() {
     return (
       <div className="App">
         <Navbar account={this.state.account} />
-        <h1 className="text-center mt-5">Match NFT</h1>
+        <div className="container-fluid mt-5">
+          <div className="row">
+            <main role="main" className="col-lg-12 d-flex text-center">
+              <div className="content mr-auto ml-auto">
+                <h1 className="d-4">Start matching now!</h1>
+
+                <div className="grid mb-4">
+                  { this.state.cardArray.map((card, key) => {
+                      return(
+                        <img
+                          className="m-1"
+                          key={key}
+                          src={this.chooseImage(key)}
+                          data-id={key}
+                        />
+                      )
+                    })}
+                </div>
+
+              </div>
+            </main>
+          </div>
+        </div>
       </div>
     );
   }
