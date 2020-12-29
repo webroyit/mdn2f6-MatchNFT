@@ -5,6 +5,57 @@ import './App.css';
 import MemoryToken from './abis/MemoryToken.json';
 import Navbar from './component/Navbar';
 
+const CARD_ARRAY = [
+  {
+    name: 'icon1',
+    img: '/images/icon1.png'
+  },
+  {
+    name: 'icon2',
+    img: '/images/icon2.png'
+  },
+  {
+    name: 'icon3',
+    img: '/images/icon3.png'
+  },
+  {
+    name: 'icon4',
+    img: '/images/icon4.png'
+  },
+  {
+    name: 'icon5',
+    img: '/images/icon5.png'
+  },
+  {
+    name: 'icon6',
+    img: '/images/icon6.png'
+  },
+  {
+    name: 'icon1',
+    img: '/images/icon1.png'
+  },
+  {
+    name: 'icon2',
+    img: '/images/icon2.png'
+  },
+  {
+    name: 'icon3',
+    img: '/images/icon3.png'
+  },
+  {
+    name: 'icon4',
+    img: '/images/icon4.png'
+  },
+  {
+    name: 'icon5',
+    img: '/images/icon5.png'
+  },
+  {
+    name: 'icon6',
+    img: '/images/icon6.png'
+  }
+]
+
 class App extends Component {
   constructor(props){
     super(props);
