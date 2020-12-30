@@ -140,11 +140,42 @@ class App extends Component {
   }
 
   flipCard = async (cardId) => {
+    let alreadyChosen = this.state.cardsChosen.length;
+
     // Keep track of the chosen cards
     this.setState({
       cardsChosen: [...this.state.cardsChosen, this.state.cardArray[cardId].name],
       cardsChosenId: [...this.state.cardsChosenId, cardId]
     })
+
+    if (alreadyChosen === 1) {
+      setTimeout(this.checkForMatch, 100);
+    }
+  }
+
+  checkForMatch = async () => {
+    const optionOneId = this.state.cardsChosen[0];
+    const optionTwoId = this.state.cardsChosen[1];
+
+    if (optionOneId === optionTwoId) {
+      alert('You already click this card');
+    } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
+      alert('It a match!');
+      this.setState({
+        cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId]
+      })
+    } else {
+      alert('No match, try again');
+    }
+
+    this.setState({
+      cardsChosen: [],
+      cardsChosenId: []
+    })
+
+    if (this.state.cardsWon.length === CARD_ARRAY.length) {
+      alert('You win!');
+    }
   }
 
   render() {
