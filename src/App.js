@@ -130,7 +130,11 @@ class App extends Component {
   chooseImage = (cardId) => {
     cardId = cardId.toString();
 
-    if(this.state.cardsChosenId.includes(cardId)) {
+    if (this.state.cardsWon.includes(cardId)) {
+      // Show blank white card
+      return window.location.origin + '/images/white.png';
+    }
+    else if  (this.state.cardsChosenId.includes(cardId)) {
       // Show the front of the card with the icon
       return CARD_ARRAY[cardId].img;
     } else {
@@ -154,8 +158,8 @@ class App extends Component {
   }
 
   checkForMatch = async () => {
-    const optionOneId = this.state.cardsChosen[0];
-    const optionTwoId = this.state.cardsChosen[1];
+    const optionOneId = this.state.cardsChosenId[0];
+    const optionTwoId = this.state.cardsChosenId[1];
 
     if (optionOneId === optionTwoId) {
       alert('You already click this card');
