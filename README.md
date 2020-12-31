@@ -1,4 +1,8 @@
 # Match NFT
+A game where you earn NFT when you find a matching card.  The template is from Dapp University youtube channel.
+
+## What it does?
+- You can mint NFT when you found matching pairs
 
 ## Packages
 - `@openzeppelin/contracts` a library for secure smart contract development
