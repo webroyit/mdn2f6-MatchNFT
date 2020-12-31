@@ -165,9 +165,15 @@ class App extends Component {
       alert('You already click this card');
     } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
       alert('It a match!');
-      this.setState({
-        cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId]
-      })
+      // `window.location.origin` is the current location. ex=localhost:3000
+      this.state.token.methods.mint(this.state.account, window.location.origin + CARD_ARRAY[optionOneId].img.toString())
+        .send({ from: this.state.account })
+        .on('transactionHash', (hash) => {
+          this.setState({
+            cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
+            tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+          })
+        })
     } else {
       alert('No match, try again');
     }
