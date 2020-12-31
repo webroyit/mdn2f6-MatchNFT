@@ -218,6 +218,22 @@ class App extends Component {
                     })}
                 </div>
 
+                <div>
+                  <h4>Tokens Collected:<span id="result">&nbsp;{this.state.tokenURIs.length}</span></h4>
+
+                  <div className="grid mb-4" >
+                    { this.state.tokenURIs.map((tokenURI, key) => {
+                      return(
+                        <img
+                          className="m-1"
+                          key={key}
+                          src={tokenURI}
+                          alt="Token"
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
             </main>
           </div>
